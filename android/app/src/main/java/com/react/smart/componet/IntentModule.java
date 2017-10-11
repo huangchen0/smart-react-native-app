@@ -30,7 +30,7 @@ public class IntentModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return getClass().getSimpleName();
+        return "RNIntentModule";
     }
 
     @ReactMethod

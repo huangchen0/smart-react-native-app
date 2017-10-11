@@ -1,7 +1,7 @@
 /**
-* Sample React Native App
-* https://github.com/facebook/react-native
-*/
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ */
 
 import React, {
     Component
@@ -23,34 +23,34 @@ import {
     ScrollView,
     ListView
 
-  } from 'react-native';
+} from 'react-native';
 
-  import {
-      Card, Button, Avatar, Drawer, Divider, COLOR, TYPO
-  } from 'react-native-material-design';
+import {
+    Card, Button, Avatar, Drawer, Divider, COLOR, TYPO
+} from 'react-native-material-design';
 
 class DrawReactActivity extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
-        var ds = new ListView.DataSource( {rowHasChanged: (r1, r2) => r1 !== r2} );
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
         this.state = {
             route: 'home',
-            theme:null,
+            theme: null,
             text: 'Welcome to React Native!',
             navigateCount: 0,
-            dataSource : ds.cloneWithRows(['CLOTHES','PACKAGES','SHOES',])
+            dataSource: ds.cloneWithRows(['CLOTHES', 'PACKAGES', 'SHOES',])
         };
     }
 
     componentWillMount() {
         if (Platform.OS === 'android') {
-            BackAndroid.addEventListener('hardwareBackPress', ()=>this._backButton());
+            BackAndroid.addEventListener('hardwareBackPress', () => this._backButton());
         }
-     }
+    }
 
-    _backButton(){
+    _backButton() {
         const {navigateCount} = this.state;
         if (navigateCount) {
             NativeModules.RNIntentModule.backActivity(navigateCount)
@@ -59,15 +59,15 @@ class DrawReactActivity extends Component {
         return false;
     }
 
-    _secondActivity(){
-           NativeModules.RNIntentModule.openSecondActivity();
+    _secondActivity() {
+        NativeModules.RNIntentModule.openSecondActivity();
     }
 
-     _secondReactActivity(){
-          NativeModules.RNIntentModule.openSecondReactActivity();
-     }
+    _secondReactActivity() {
+        NativeModules.RNIntentModule.openSecondReactActivity();
+    }
 
-    _clickButton(){
+    _clickButton() {
         NativeModules.RNIntentModule.finishActivity('我是来自React Native的消息');
     }
 
@@ -85,78 +85,81 @@ class DrawReactActivity extends Component {
     }
 
     render() {
-     var navigationView = (
-         <Drawer theme='light'>
-             <Drawer.Header image={<Image source={{ uri: "http://facebook.github.io/react-native/img/opengraph.png?2" }}  />}>
-                 <View style={styles.header}>
-                     <Avatar size={80} image={<Image source={require('../../images/search.png')}/>} />
-                     <Text style={[styles.text, COLOR.paperGrey50, TYPO.paperFontSubhead]}>React Native</Text>
-                 </View>
-             </Drawer.Header>
-             <Drawer.Section
-                 items={[{
-                     icon: 'home',
-                     value: '首页',
-                     active: !this.state.route || this.state.route  === 'home',
-                     onPress: () => this.onNavPress('home'),
-                     onLongPress: () => this.onNavPress('home')
-                 },
-                 {
-                     icon: 'message',
-                     value: '消息',
-                     active: !this.state.route  || this.state.route  === 'message',
-                     onPress: () => this.onNavPress('message'),
-                     onLongPress: () => this.onNavPress('message')
-                 },
-                 {
-                     icon: 'search',
-                     value: '发现',
-                     active: !this.state.route  || this.state.route  === 'discover',
-                     onPress: () => this.onNavPress('discover'),
-                     onLongPress: () => this.onNavPress('discover')
-                 },
-                 {
-                     icon: 'settings',
-                     value: '我的',
-                     active: !this.state.route  || this.state.route  === 'user',
-                     onPress: () => this.onNavPress('user'),
-                     onLongPress: () => this.onNavPress('user')
-                 }]}
-             />
-         </Drawer>
-     );
+        var navigationView = (
+            <Drawer theme='light'>
+                <Drawer.Header
+                    image={<Image source={{uri: "http://facebook.github.io/react-native/img/opengraph.png?2"}}/>}>
+                    <View style={styles.header}>
+                        <Avatar size={80} image={<Image source={require('../../images/search.png')}/>}/>
+                        <Text style={[styles.text, COLOR.paperGrey50, TYPO.paperFontSubhead]}>React Native</Text>
+                    </View>
+                </Drawer.Header>
+                <Drawer.Section
+                    items={[{
+                        icon: 'home',
+                        value: '首页',
+                        active: !this.state.route || this.state.route === 'home',
+                        onPress: () => this.onNavPress('home'),
+                        onLongPress: () => this.onNavPress('home')
+                    },
+                        {
+                            icon: 'message',
+                            value: '消息',
+                            active: !this.state.route || this.state.route === 'message',
+                            onPress: () => this.onNavPress('message'),
+                            onLongPress: () => this.onNavPress('message')
+                        },
+                        {
+                            icon: 'search',
+                            value: '发现',
+                            active: !this.state.route || this.state.route === 'discover',
+                            onPress: () => this.onNavPress('discover'),
+                            onLongPress: () => this.onNavPress('discover')
+                        },
+                        {
+                            icon: 'settings',
+                            value: '我的',
+                            active: !this.state.route || this.state.route === 'user',
+                            onPress: () => this.onNavPress('user'),
+                            onLongPress: () => this.onNavPress('user')
+                        }]}
+                />
+            </Drawer>
+        );
 
-     return (
-         <DrawerLayoutAndroid
-             ref={'DRAWER'}
-             drawerWidth = {200}
-             drawerPosition={DrawerLayoutAndroid.positions.Left}
-             renderNavigationView={() => navigationView}>
-             <Navigator
-                ref={(navigator) => { this.navigator = navigator }}
-                initialRoute ={{name: 'home'}}
-                configureScene={(route, routeStack) =>
-                    Navigator.SceneConfigs.FloatFromLeft}
-                renderScene={(route, navigator) =><Text>Hello {route.name}!</Text>}
+        return (
+            <DrawerLayoutAndroid
+                ref={'DRAWER'}
+                drawerWidth={200}
+                drawerPosition={DrawerLayoutAndroid.positions.Left}
+                renderNavigationView={() => navigationView}>
+                <Navigator
+                    ref={(navigator) => {
+                        this.navigator = navigator
+                    }}
+                    initialRoute={{name: 'home'}}
+                    configureScene={(route, routeStack) =>
+                        Navigator.SceneConfigs.FloatFromLeft}
+                    renderScene={(route, navigator) => <Text>Hello {route.name}!</Text>}
                 >
-            </Navigator>
-         </DrawerLayoutAndroid>
-     )
-   }
+                </Navigator>
+            </DrawerLayoutAndroid>
+        )
+    }
 
 
     componentDidMount() {
         NativeModules.RNIntentModule.getDataFromIntent(
             successMsg => this.setState({text: successMsg, navigateCount: 1}),
             errorMsg => this.setState({text: errorMsg, navigateCount: 1})
-       );
+        );
 
-       //NativeModules.ToastAndroid.show('Toast 是原生支持的!', 3000);
+        //NativeModules.ToastAndroid.show('Toast 是原生支持的!', 3000);
     }
 
     componentWillUnmount() {
         if (Platform.OS === 'android') {
-            BackAndroid.removeEventListener('hardwareBackPress', ()=>this._backButton());
+            BackAndroid.removeEventListener('hardwareBackPress', () => this._backButton());
         }
     }
 }
@@ -181,33 +184,29 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontSize: 14,
     },
-    contentContainer: {
-
-     },
-     listItem:{
-
-     },
-     photoRow:{
-       flexDirection:'row',
-       justifyContent: 'space-between',
-       paddingLeft: 20,
-       paddingRight: 20,
-       marginTop:10,
-     },
-     photoItem:{
-       height: 120,
-       width:90 ,
-       alignItems: 'stretch' ,
-       alignSelf:'center'
-     },
-     photoName:{
-       fontSize:14,
-       color:'#f39d7f',
-       alignSelf:'center',
-     },
-     photoPrice:{
-       fontSize:12,  color:'#484848', alignSelf:'center'
-     }
+    contentContainer: {},
+    listItem: {},
+    photoRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20,
+        marginTop: 10,
+    },
+    photoItem: {
+        height: 120,
+        width: 90,
+        alignItems: 'stretch',
+        alignSelf: 'center'
+    },
+    photoName: {
+        fontSize: 14,
+        color: '#f39d7f',
+        alignSelf: 'center',
+    },
+    photoPrice: {
+        fontSize: 12, color: '#484848', alignSelf: 'center'
+    }
 });
 
 AppRegistry.registerComponent('DrawReactActivity', () => DrawReactActivity);

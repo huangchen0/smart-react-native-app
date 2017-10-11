@@ -15,9 +15,10 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.facebook.react.JSCConfig;
-import com.facebook.react.LifecycleState;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
+import com.facebook.react.common.LifecycleState;
+import com.facebook.react.cxxbridge.JSBundleLoader;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.react.smart.componet.IntentPackage;
@@ -163,7 +164,7 @@ public class UpdateReactActivity extends Activity implements DefaultHardwareBack
             method.setAccessible(true);
             method.invoke(mReactInstanceManager,
                     new com.facebook.react.cxxbridge.JSCJavaScriptExecutor.Factory(jscConfig.getConfigMap()),
-                    com.facebook.react.cxxbridge.JSBundleLoader.createFileLoader(getApplicationContext(), JS_BUNDLE_LOCAL_PATH));
+                    JSBundleLoader.createFileLoader(JS_BUNDLE_LOCAL_PATH));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

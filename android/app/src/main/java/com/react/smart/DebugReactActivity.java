@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.facebook.react.LifecycleState;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
-import com.facebook.react.bridge.ReactMarker;
+import com.facebook.react.common.LifecycleState;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.react.smart.componet.IntentPackage;
@@ -35,7 +34,6 @@ public class DebugReactActivity extends Activity implements DefaultHardwareBackB
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModuleName("index.android")
                 .setCurrentActivity(this)
-                .setUseOldBridge(false)
                 .addPackage(new MainReactPackage())
                 .addPackage(new IntentPackage())
                 .setUseDeveloperSupport(true)
