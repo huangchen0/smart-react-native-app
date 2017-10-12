@@ -24,8 +24,8 @@ public class SecondReactActivity extends Activity implements DefaultHardwareBack
 
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
-                .setBundleAssetName("components/test/second.android.bundle")
-                .setJSMainModuleName("components/test/second.android")
+                .setBundleAssetName("app/pages/test/second.android.bundle")
+                .setJSMainModuleName("app/pages/test/second.android")
                 .setCurrentActivity(this)
                 //.setUseNewBridge()
                 .addPackage(new MainReactPackage())

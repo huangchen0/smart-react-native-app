@@ -1,7 +1,11 @@
 package com.react.smart.test;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.KeyEvent;
 
 import com.facebook.react.ReactInstanceManager;
@@ -13,19 +17,26 @@ import com.react.smart.BuildConfig;
 import com.react.smart.componet.IntentPackage;
 
 public class DrawReactActivity extends Activity implements DefaultHardwareBackBtnHandler {
-
+    private final int REQUEST_OVERLAY_PERMISSION_CODE = 1111;
     private ReactInstanceManager mReactInstanceManager;
     private ReactRootView mReactRootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, REQUEST_OVERLAY_PERMISSION_CODE);
+            }
+        }
         mReactRootView = new ReactRootView(this);
 
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
-                .setBundleAssetName("app/pages/test/drawMD.android.bundle")
-                .setJSMainModuleName("app/pages/test/drawMD.android")
+                .setBundleAssetName("app/pages/test/index.android.bundle")
+                .setJSMainModuleName("app/pages/test/index.android")
                 .setCurrentActivity(this)
                 //.setUseNewBridge()
                 .addPackage(new MainReactPackage())
@@ -34,7 +45,7 @@ public class DrawReactActivity extends Activity implements DefaultHardwareBackBt
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .build();
 
-        mReactRootView.startReactApplication(mReactInstanceManager, "DrawReactActivity", null);
+        mReactRootView.startReactApplication(mReactInstanceManager, "SmartRectNativeApp", null);
 
         setContentView(mReactRootView);
     }
@@ -70,5 +81,16 @@ public class DrawReactActivity extends Activity implements DefaultHardwareBackBt
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_OVERLAY_PERMISSION_CODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!Settings.canDrawOverlays(this)) {
+                    // SYSTEM_ALERT_WINDOW permission not granted...
+                }
+            }
+        }
     }
 }

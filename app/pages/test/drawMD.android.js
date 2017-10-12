@@ -131,7 +131,7 @@ class DrawReactActivity extends Component {
             <DrawerLayoutAndroid
                 ref={'DRAWER'}
                 drawerWidth={200}
-                drawerPosition={DrawerLayoutAndroid.positions.Left}
+                drawerPosition={DrawerLayoutAndroid.positions.left}
                 renderNavigationView={() => navigationView}>
                 <Navigator
                     ref={(navigator) => {

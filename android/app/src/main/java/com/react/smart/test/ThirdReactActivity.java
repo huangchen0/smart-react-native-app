@@ -24,8 +24,8 @@ public class ThirdReactActivity extends Activity implements DefaultHardwareBackB
 
         mReactInstanceManager = ReactInstanceManager.builder()
                 .setApplication(getApplication())
-                .setBundleAssetName("components/test/third.android.bundle")
-                .setJSMainModuleName("components/test/third.android")
+                .setBundleAssetName("app/pages/test/third.android.bundle")
+                .setJSMainModuleName("app/pages/test/third.android")
                 .setCurrentActivity(this)
                 //.setUseNewBridge()
                 .addPackage(new MainReactPackage())
